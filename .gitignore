@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+*.pyo
+*.egg-info
+*.egg
+*.hi
+*.o
+ignore
