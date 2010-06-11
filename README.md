@@ -12,4 +12,4 @@ Implements the interpolation of cubic Beziers with bi-arcs.
   - NURBS.
 - Test out Hausdorf metric for err tolerances.
 
-# vim: set tabstop=2 shiftwidth=2:
+` vim: set tabstop=2 shiftwidth=2: `
