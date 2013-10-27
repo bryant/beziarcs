@@ -45,6 +45,14 @@ public:
         out << "(" << p.x << ", " << p.y << ")";
         return out;
     }
+
+#if defined(UNIT_TEST)
+    bool operator== (const Point &other) const {
+        BOOST_CHECK_CLOSE(x, other.x, EPSILON);
+        BOOST_CHECK_CLOSE(y, other.y, EPSILON);
+        return true;
+    }
+#endif
 };
 
 class Segment {
@@ -59,6 +67,11 @@ public:
         double num = std::abs((e.x-s.x)*(s.y-p.y) - (s.x-p.x)*(e.y-s.y));
         double den = std::sqrt(std::pow(e.x-s.x, 2) + std::pow(e.y-s.y, 2));
         return num / den;
+    }
+
+    Point operator() (double t) const {
+        /* linear interpolation */
+        return (s+e)*t;
     }
 };
 
@@ -78,6 +91,11 @@ public:
 BOOST_AUTO_TEST_CASE(dist_to) {
     BOOST_CHECK_CLOSE(Segment(Point(3, 4), Point(9, 9)).dist_to(Point(5, 5)),
                       (double) 4 / std::sqrt(61), EPSILON);
+}
+
+BOOST_AUTO_TEST_CASE(segment_interp) {
+    Segment s(Point(3, 4), Point(9, 9));
+    BOOST_CHECK(s(0.5) == Point(6, 6.5));
 }
 #else
 int main() {
