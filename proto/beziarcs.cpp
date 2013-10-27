@@ -29,15 +29,15 @@ public:
     double cross(Point &other);
     double normalize() const;
 
-    Point operator- (Point &other) {
+    Point operator- (Point &other) const {
         return Point(x-other.x, y-other.y);
     }
 
-    Point operator+ (Point &other) {
+    Point operator+ (const Point &other) const {
         return Point(x+other.x, y+other.y);
     }
 
-    Point operator* (double scale) {
+    Point operator* (double scale) const {
         return Point(x*scale, y*scale);
     }
 
