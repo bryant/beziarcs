@@ -11,6 +11,8 @@
 #include <boost/test/unit_test.hpp>
 #endif
 
+const double EPSILON = 1e-12;
+
 class Point {
     double x;
     double y;
@@ -75,7 +77,7 @@ public:
 #if defined(UNIT_TEST)
 BOOST_AUTO_TEST_CASE(dist_to) {
     BOOST_CHECK_CLOSE(Segment(Point(3, 4), Point(9, 9)).dist_to(Point(5, 5)),
-                      (double) 4 / std::sqrt(61), (double) 1e-12);
+                      (double) 4 / std::sqrt(61), EPSILON);
 }
 #else
 int main() {
