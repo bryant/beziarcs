@@ -15,7 +15,7 @@ class Point {
     double x;
     double y;
 
-    friend class Line;
+    friend class Segment;
 
 public:
     Point(double x_, double y_) : x(x_), y(y_) {}
@@ -45,12 +45,12 @@ public:
     }
 };
 
-class Line {
+class Segment {
     Point s;
     Point e;
 
 public:
-    Line(const Point &s_, const Point &e_) : s(s_), e(e_) {}
+    Segment(const Point &s_, const Point &e_) : s(s_), e(e_) {}
 
     double dist_to(const Point &p) {
         /* point-to-line dist */
@@ -67,14 +67,14 @@ public:
     CubicBezier(std::array<Point, 4> &ctrl_) : ctrl(ctrl_) {}
 
     double flatness() const {
-        Line chord(ctrl[0], ctrl[3]);
+        Segment chord(ctrl[0], ctrl[3]);
         return std::max(chord.dist_to(ctrl[1]), chord.dist_to(ctrl[2]));
     }
 };
 
 #if defined(UNIT_TEST)
 BOOST_AUTO_TEST_CASE(dist_to) {
-    BOOST_CHECK_CLOSE(Line(Point(3, 4), Point(9, 9)).dist_to(Point(5, 5)),
+    BOOST_CHECK_CLOSE(Segment(Point(3, 4), Point(9, 9)).dist_to(Point(5, 5)),
                       (double) 4 / std::sqrt(61), (double) 1e-12);
 }
 #else
@@ -82,7 +82,7 @@ int main() {
     Point x(3, 4);
     Point y(9, 9);
     std::cout << (x + y) << std::endl;
-    std::cout << Line(x, y).dist_to(Point(5, 5)) << std::endl;
+    std::cout << Segment(x, y).dist_to(Point(5, 5)) << std::endl;
     return 0;
 }
 #endif
